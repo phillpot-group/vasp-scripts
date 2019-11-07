@@ -5,6 +5,7 @@ src=$1
 dst="$(pwd)"
 
 # untar the tarball into a new directory
+mkdir "$dst/vasp"
 tar -xf $src -C "$dst/vasp"
 
 # move into the created directory
