@@ -7,7 +7,7 @@ Script names should follow the general convention `purpose_software_platform` wh
 ## Descriptions
 
 ### compile_vasp_hipergator.sh
-Compiles the vasp executable and creates a `VASP_BIN` environment variable which points to its location. This script dynamically installs the `makefile.include` located in the `resources` directory at runtime so any changes to that file may break this script. The script expects the path to the vasp tarball as its first and only command line argument as shown below.
+Compiles the vasp executable and creates `VASP_STD_BIN`, `VASP_GAM_BIN`, and `VASP_NCL_BIN` environment variables which point to the location of the standard, gamma-only, and non-collinear versions respectively. This script dynamically installs the `makefile.include` file from the `resources` directory at runtime so any changes to that file may break this script. The script expects the path to the vasp tarball as its first and only command line argument as shown below.
 ```
 # I strongly recommend installing in ~/usr/local
 
