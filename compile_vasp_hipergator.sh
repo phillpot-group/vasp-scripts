@@ -26,7 +26,10 @@ wget https://raw.githubusercontent.com/phillpot-group/vasp-scripts/master/resour
 # compile
 make all
 
-# add VASP_BIN environment variable to .bashrc
-echo "VASP_BIN=$(pwd)/bin/vasp_std" >> ~/.bashrc
+# add environment variables to .bashrc
+echo "VASP_STD_BIN=$(pwd)/bin/vasp_std" >> ~/.bashrc
+echo "VASP_GAM_BIN=$(pwd)/bin/vasp_gam" >> ~/.bashrc
+echo "VASP_NCL_BIN=$(pwd)/bin/vasp_ncl" >> ~/.bashrc
+
 # update the session
 source ~/.bashrc
