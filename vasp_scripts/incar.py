@@ -1,4 +1,4 @@
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from vasp_scripts.util import TextFile
 
@@ -38,3 +38,7 @@ class Incar(TextFile):
         if self._tags is None:
             raise RuntimeError("file not read")
         return self._tags
+
+    @tags.setter
+    def tags(self, value: Dict[str, Any]) -> None:
+        self._tags = {k: str(v) for k, v in value.items()}
