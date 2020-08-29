@@ -6,7 +6,7 @@ class TextFile(object):
 
     def __init__(self, path: str) -> None:
         self.path = path
-        self._lines = None
+        self._lines: Optional[List[str]] = None
 
     def read(self) -> None:
         with open(self.path, "r") as f:
