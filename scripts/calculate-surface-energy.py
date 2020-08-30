@@ -11,6 +11,8 @@ from rich.table import Table
 
 
 if __name__ == "__main__":
+    console = Console()
+    
     parser = argparse.ArgumentParser(description="Calculate surface energy.")
     parser.add_argument("bulk", help="path to the bulk reference calculation")
     parser.add_argument("surface", help="path to the surface structure calculation")
@@ -36,6 +38,4 @@ if __name__ == "__main__":
     table.add_row("Surface Area", "A^2", "{:.6E}".format(surface_area))
     table.add_row("Surface Formation Energy", "eV/A^2", "{:.6E}".format(res))
 
-    console = Console()
     console.print(table)
-
