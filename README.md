@@ -16,7 +16,7 @@ __[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set o
 
 ##### Optional Arguments:
 * `--energy` - Enables comparison of final energy.
-* `--memory` - Enables comparison of average memory usage.
+* `--memory` - Enables comparison of maximum memory usage.
 * `--time` - Enables comparison of elapsed time.
 * `--ignore` - Directory names to exclude from consideration
 
