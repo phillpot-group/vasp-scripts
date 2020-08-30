@@ -3,25 +3,33 @@ import os
 
 from pymatgen.io.vasp.outputs import Oszicar, Outcar
 
+from rich.console import Console
+
 from termgraph.termgraph import chart
 
 
-def plot_energy(data):
-    labels = list(data)
-    values = [data[k]["energy"] for k in data]
-    _plot(labels, values, title="Final Energy (eV)")
+def plot_energy(data, console):
+    data = {k: v for k, v in sorted(data["energy"].items(), key=lambda item: item[1])}
+    labels = list(data.keys())
+    values = list(data.values())
+    console.print("[bold]Final Energy[/bold]")
+    _plot(labels, values, suffix=" eV", format="{:<5.6f}")
 
 
-def plot_memory(data):
-    labels = list(data)
-    values = [data[k]["memory"] for k in data]
-    _plot(labels, values, title="Average Memory Usage (kB)")
+def plot_memory(data, console):
+    data = {k: v for k, v in sorted(data["memory"].items(), key=lambda item: item[1])}
+    labels = list(data.keys())
+    values = list(data.values())
+    console.print("[bold]Maximum Memory Usage[/bold]")
+    _plot(labels, values, suffix=" kB", format="{:.0f}")
 
 
-def plot_time(data):
-    labels = list(data)
-    values = [data[k]["time"] for k in data]
-    _plot(labels, values, title="Elapsed Time (sec)")
+def plot_time(data, console):
+    data = {k: v for k, v in sorted(data["time"].items(), key=lambda item: item[1])}
+    labels = list(data.keys())
+    values = list(data.values())
+    console.print("[bold]Elapsed Time[/bold]")
+    _plot(labels, values, suffix=" secs")
 
 
 def _plot(labels, values, **kwargs):
@@ -41,6 +49,7 @@ def _plot(labels, values, **kwargs):
 
 
 if __name__ == "__main__":
+    console = Console()
     parser = argparse.ArgumentParser(description="Compares the outputs of a series of calculations.")
     parser.add_argument("--ignore", nargs="*", help="directory names to remove from consideration")
     parser.add_argument("--energy", action="store_true", help="enables final energy comparison")
@@ -50,23 +59,26 @@ if __name__ == "__main__":
     if args.ignore is None:
         args.ignore = []
 
-    data = {}
+    data = {
+        "energy": {},
+        "memory": {},
+        "time": {},
+    }
     for dirname in os.listdir():
         if not os.path.isdir(dirname):
             continue
         if dirname in args.ignore:
             continue
-        data[dirname] = {}
 
         oszicar = Oszicar(os.path.join(dirname, "OSZICAR"))
-        data[dirname]["energy"] = oszicar.final_energy
+        data["energy"][dirname] = oszicar.final_energy
         outcar = Outcar(os.path.join(dirname, "OUTCAR"))
-        data[dirname]["memory"] = outcar.run_stats["Average memory used (kb)"]
-        data[dirname]["time"] = outcar.run_stats["Elapsed time (sec)"]
+        data["memory"][dirname] = outcar.run_stats["Maximum memory used (kb)"]
+        data["time"][dirname] = outcar.run_stats["Elapsed time (sec)"]
 
     if args.energy:
-        plot_energy(data)
+        plot_energy(data, console)
     if args.memory:
-        plot_memory(data)
+        plot_memory(data, console)
     if args.time:
-        plot_time(data)
+        plot_time(data, console)
