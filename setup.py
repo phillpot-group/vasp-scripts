@@ -10,8 +10,8 @@ setup(
     url="https://github.com/phillpot-group/vasp-scripts",
     license="MIT License",
     scripts=[
-        "scripts/calculate-surface-energy.py",
-        "scripts/run-kpoints-convergence.py",
+        "scripts/vasp-converge.py",
+        "scripts/vasp-defect-energy.py",
     ],
     install_requires=["pymatgen", "rich"],
 )

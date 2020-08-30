@@ -8,25 +8,37 @@ The collection can be downloaded from PyPI under the package name `phillpot-vasp
 ```bash
 $ pip install phillpot-vasp-scripts
 ```
+Assuming your `pip` installation is configured correctly, the scripts will be immediately available through your `PATH` environment variable.
 
 ## Available Scripts
 
-__[calculate-surface-energy.py](scripts/calculate-surface-energy.py)__ - Calculate surface formation energy from a bulk system and a system with an exposed surface.
+__[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
 
 ##### Positional Arguments:
-* `bulk` - Path to the bulk system's calculation directory.
-* `surface` - Path to the surface exposed system's calculation directory.
+* `type` - The type of defect to expect (surface, point...).
+* `reference` - Path to the reference system's calculation directory.
+* `defective` - Path to the defective system's calculation directory.
 
-![calculate-surface-energy.py](assets/calculate_surface_energy.png)
 
-__[run-kpoints-convergence.py](scripts/run-kpoints-convergence.py)__ - Sets up a k-points convergence study from the input files in the current directory.
+__[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test from input files in the current directory.
 
-##### Positional Arguments:
-* `min` - Minimum grid density.
-* `max` - Maximum grid density.
-* `n` - Number of density values to test.
+##### Subcommands:
+* `kpoints` - Signals a k-point convergence test.
+    
+    ###### Positional Arguments:
+    * `min` - Minimum grid density.
+    * `max` - Maximum grid density.
+    * `n` - Number of density values to test.
+
+    ###### Optional Arguments:
+    * `--mode` - Grid construction mode (gamma, monkhorst...). Defaults to 'gamma'.
+
+* `incar` - Signals an INCAR tag convergence test.
+
+    ###### Positional Arguments:
+    * `tag` - INCAR tag name.
+    * `values` - Tag values to test.
 
 ##### Optional Arguments:
-* `--style` - The kpoint style (gamma, monkhorst...). Defaults to 'gamma'.
-* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' (SLURM).
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
