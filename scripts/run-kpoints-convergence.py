@@ -4,7 +4,7 @@ import shutil
 
 import numpy as np
 
-from pymatgen.io.vasp.inputs import Kpoints, Poscar
+from pymatgen.io.vasp.inputs import Kpoints, Kpoints_supported_modes, Poscar
 
 from rich.console import Console
 
@@ -21,19 +21,26 @@ if __name__ == "__main__":
     parser.add_argument("--jobfile", default="runjob.slurm")
     args = parser.parse_args()
     density_values = np.linspace(args.min, args.max, args.n)
+    style = Kpoints_supported_modes.from_string(args.style)
 
     poscar = Poscar.from_file("POSCAR")
     structure = poscar.structure
 
     for density in density_values:
         kpoints = Kpoints.automatic_density(structure, density)
-        dirname = "{:.6}".format(density)
-        console.print("writing '{}'...".format(dirname))
+        kpoints.style = style
+        dirname = "{:.0f}".format(density)
+        console.print("Writing directory [yellow]{}[/yellow]...".format(dirname))
         os.mkdir(dirname)
         shutil.copy("INCAR", os.path.join(dirname, "INCAR"))
         shutil.copy("POSCAR", os.path.join(dirname, "POSCAR"))
         shutil.copy("POTCAR", os.path.join(dirname, "POTCAR"))
         shutil.copy(args.jobfile, os.path.join(dirname, args.jobfile))
         kpoints.write_file(os.path.join(dirname, "KPOINTS"))
+        os.chdir(dirname)
+        console.print("Submitting job...")
+        os.system("{} {}".format(args.jobcmd, args.jobfile))
+        os.chdir("..")
 
-    console.print("setup complete.")
+    console.print("[bold green]Setup complete![/bold green]")
+

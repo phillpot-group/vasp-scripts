@@ -11,6 +11,7 @@ setup(
     license="MIT License",
     scripts=[
         "scripts/calculate-surface-energy.py",
+        "scripts/run-kpoints-convergence.py",
     ],
     install_requires=["pymatgen", "rich"],
 )
