@@ -20,6 +20,8 @@ __[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set o
 * `--time` - Enables comparison of elapsed time.
 * `--ignore` - Directory names to exclude from consideration
 
+![](assets/vasp_compare.png)
+
 
 __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test from input files in the current directory.
 
@@ -44,6 +46,8 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
 
+![](assets/vasp_converge_kpoints.png)
+
 
 __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
 
@@ -51,6 +55,8 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
 * `type` - The type of defect to expect (surface, point...).
 * `reference` - Path to the reference system's calculation directory.
 * `defective` - Path to the defective system's calculation directory.
+
+![](assets/vasp_defect_energy_surface.png)
 
 
 __[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
