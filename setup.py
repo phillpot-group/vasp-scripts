@@ -13,5 +13,9 @@ setup(
         "scripts/vasp-converge.py",
         "scripts/vasp-defect-energy.py",
     ],
-    install_requires=["pymatgen", "rich"],
+    install_requires=[
+        "pymatgen", 
+        "rich", 
+        "termgraph"
+    ],
 )

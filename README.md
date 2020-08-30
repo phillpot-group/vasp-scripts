@@ -12,12 +12,13 @@ Assuming your `pip` installation is configured correctly, the scripts will be im
 
 ## Available Scripts
 
-__[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
+__[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set of VASP calculations.
 
-##### Positional Arguments:
-* `type` - The type of defect to expect (surface, point...).
-* `reference` - Path to the reference system's calculation directory.
-* `defective` - Path to the defective system's calculation directory.
+##### Optional Arguments:
+* `--energy` - Enables comparison of final energy.
+* `--memory` - Enables comparison of average memory usage.
+* `--time` - Enables comparison of elapsed time.
+* `--ignore` - Directory names to exclude from consideration
 
 
 __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test from input files in the current directory.
@@ -42,3 +43,11 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
 ##### Optional Arguments:
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
+
+
+__[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
+
+##### Positional Arguments:
+* `type` - The type of defect to expect (surface, point...).
+* `reference` - Path to the reference system's calculation directory.
+* `defective` - Path to the defective system's calculation directory.
