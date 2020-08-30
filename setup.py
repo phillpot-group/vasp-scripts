@@ -10,6 +10,7 @@ setup(
     url="https://github.com/phillpot-group/vasp-scripts",
     license="MIT License",
     scripts=[
+        "scripts/vasp-compare.py",
         "scripts/vasp-converge.py",
         "scripts/vasp-defect-energy.py",
     ],
