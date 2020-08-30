@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(
-    name="ufl-vasp-scripts",
+    name="phillpot-vasp-scripts",
     version="0.1.0",
     description="A collection of scipts to automate common VASP tasks.",
     author="Seaton Ullberg",
