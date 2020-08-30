@@ -12,7 +12,7 @@ Assuming your `pip` installation is configured correctly, the scripts will be im
 
 ## Available Scripts
 
-__[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set of VASP calculations.
+__[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set of calculations in the current directory.
 
 ##### Optional Arguments:
 * `--energy` - Enables comparison of final energy.
@@ -51,3 +51,10 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
 * `type` - The type of defect to expect (surface, point...).
 * `reference` - Path to the reference system's calculation directory.
 * `defective` - Path to the defective system's calculation directory.
+
+
+__[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
+
+##### Optional Arguments:
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
+* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
