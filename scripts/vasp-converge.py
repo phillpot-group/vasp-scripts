@@ -7,6 +7,7 @@ import numpy as np
 from pymatgen.io.vasp.inputs import Incar, Kpoints, Kpoints_supported_modes, Poscar
 
 from rich.console import Console
+from rich.table import Table
 
 
 def converge_kpoints(args, console):
@@ -14,26 +15,37 @@ def converge_kpoints(args, console):
     mode = Kpoints_supported_modes.from_string(args.mode)
     structure = Poscar.from_file("POSCAR").structure
 
-    for i, density in enumerate(density_values):
-        dirname = "kpoints-{}".format(i)
-        console.print("[blue]{}:[/blue] density = {:.6E} /A^-1".format(density))
+    table = Table(title="K-point Convergence Summary")
+    table.add_column("Directory")
+    table.add_column("Grid")
+    table.add_column("Density (atoms^-1)", justify="right")
+    grids = []
+    for density in density_values:
+        dirname = "kpoints-{}".format(len(grids))
+        kpoints = Kpoints.automatic_density(structure, density)
+        kpoints.style = mode
+        grid = (kpoints.kpts[0][0], kpoints.kpts[0][1], kpoints.kpts[0][2])
+        if grid in grids:
+            console.print("[bold yellow]WARNING:[/bold yellow] density {:.2f} does not produce a unique grid (skipping...)".format(density))
+            continue
+        grids.append(grid)
         os.mkdir(dirname)
         shutil.copy("INCAR", os.path.join(dirname, "INCAR"))
         shutil.copy("POSCAR", os.path.join(dirname, "POSCAR"))
         shutil.copy("POTCAR", os.path.join(dirname, "POTCAR"))
         shutil.copy(args.jobfile, os.path.join(dirname, args.jobfile))
-        kpoints = Kpoints.automatic_density(structure, density)
-        kpoints.style = mode
         kpoints.write_file(os.path.join(dirname, "KPOINTS"))
         os.chdir(dirname)
-        os.system("{} {}".format(args.jobcmd, args.jobfile))
+        #os.system("{} {}".format(args.jobcmd, args.jobfile))
         os.chdir("..")
+        table.add_row(dirname, "{}x{}x{}".format(*grid), "{:.2f}".format(density))
+    console.print(table)
 
 
 def converge_incar(args, console):
     for i, value in enumerate(args.values):
         dirname = "incar-{}".format(i)
-        console.print("[blue]{}:[/blue] value = {}".format(value))
+        console.print("[bold white]{}:[/bold white] value = {}".format(dirname, value))
         os.mkdir(dirname)
         shutil.copy("POSCAR", os.path.join(dirname, "POSCAR"))
         shutil.copy("POTCAR", os.path.join(dirname, "POTCAR"))
@@ -67,4 +79,4 @@ if __name__ == "__main__":
     parser_incar.set_defaults(func=converge_incar)
     args = parser.parse_args()
     args.func(args, console)
-    console.print("[bold green]SUCCESS:[/bold green] setup complete")
+

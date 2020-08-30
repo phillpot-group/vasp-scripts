@@ -13,6 +13,7 @@ setup(
         "scripts/vasp-compare.py",
         "scripts/vasp-converge.py",
         "scripts/vasp-defect-energy.py",
+        "scripts/vasp-restart.py",
     ],
     install_requires=[
         "pymatgen", 
