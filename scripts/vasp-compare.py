@@ -69,7 +69,6 @@ if __name__ == "__main__":
             continue
         if dirname in args.ignore:
             continue
-
         oszicar = Oszicar(os.path.join(dirname, "OSZICAR"))
         data["energy"][dirname] = oszicar.final_energy
         outcar = Outcar(os.path.join(dirname, "OUTCAR"))
