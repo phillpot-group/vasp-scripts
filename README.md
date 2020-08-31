@@ -1,22 +1,68 @@
 # vasp-scripts
-Scripts related to the Vienna Ab-initio Simulation Package
+Scripts to automate common operations with the Vienna Ab-initio Simulation Package.
 
-## Format
-Script names should follow the general convention `purpose_software_platform` where, in this case, `software` will always be 'vasp'. Please comment your code __heavily__ as a courtesy to those who are not familiar with it.
+## Installation
 
-## Descriptions
+The collection can be downloaded from PyPI under the package name `phillpot-vasp-scripts`.
 
-### compile_vasp_hipergator.sh
-Compiles the vasp executable and creates `VASP_STD_BIN`, `VASP_GAM_BIN`, and `VASP_NCL_BIN` environment variables which point to the location of the standard, gamma-only, and non-collinear versions respectively. This script dynamically installs the `makefile.include` file from the `resources` directory at runtime so any changes to that file may break this script. The script expects the path to the vasp tarball as its first and only command line argument as shown below.
+```bash
+$ pip install phillpot-vasp-scripts
 ```
-# I strongly recommend installing in ~/usr/local
+Assuming your `pip` installation is configured correctly, the scripts will be immediately available through your `PATH` environment variable.
 
-$ cd ~/usr/local
-$ bash compile_vasp_hipergator.sh vasp.5.4.4.tar.gz # or some other path
-```
+## Available Scripts
 
-### runjob_vasp_hipergator.sh
-Template for a vasp job submission script on hipergator. Execute it in the following way, assuming you have copied it into your simulation directory. 
-```
-$ sbatch runjob_vasp_hipergator.sh
-```
+__[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set of calculations in the current directory.
+
+##### Optional Arguments:
+* `--energy` - Enables comparison of final energy.
+* `--memory` - Enables comparison of maximum memory usage.
+* `--time` - Enables comparison of elapsed time.
+* `--ignore` - Directory names to exclude from consideration
+
+![](assets/vasp_compare.png)
+
+
+__[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test from input files in the current directory.
+
+##### Subcommands:
+* `incar` - Signals an INCAR tag convergence test.
+
+    ###### Positional Arguments:
+    * `tag` - INCAR tag name.
+    * `values` - Tag values to test.
+
+* `kpoints` - Signals a k-point convergence test.
+    
+    ###### Positional Arguments:
+    * `min` - Minimum grid density.
+    * `max` - Maximum grid density.
+    * `n` - Number of density values to test.
+
+    ###### Optional Arguments:
+    * `--mode` - Grid construction mode (gamma, monkhorst...). Defaults to 'gamma'.
+
+##### Optional Arguments:
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
+* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
+
+![](assets/vasp_converge_incar.png)
+![](assets/vasp_converge_kpoints.png)
+
+
+__[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
+
+##### Positional Arguments:
+* `type` - The type of defect to expect (point, surface...).
+* `reference` - Path to the reference system's calculation directory.
+* `defective` - Path to the defective system's calculation directory.
+
+![](assets/vasp_defect_energy_point.png)
+![](assets/vasp_defect_energy_surface.png)
+
+
+__[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
+
+##### Optional Arguments:
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
+* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
