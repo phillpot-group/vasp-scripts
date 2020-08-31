@@ -26,6 +26,12 @@ __[vasp-compare.py](scripts/vasp-compare.py)__ - Compares the results of a set o
 __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test from input files in the current directory.
 
 ##### Subcommands:
+* `incar` - Signals an INCAR tag convergence test.
+
+    ###### Positional Arguments:
+    * `tag` - INCAR tag name.
+    * `values` - Tag values to test.
+
 * `kpoints` - Signals a k-point convergence test.
     
     ###### Positional Arguments:
@@ -36,16 +42,11 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
     ###### Optional Arguments:
     * `--mode` - Grid construction mode (gamma, monkhorst...). Defaults to 'gamma'.
 
-* `incar` - Signals an INCAR tag convergence test.
-
-    ###### Positional Arguments:
-    * `tag` - INCAR tag name.
-    * `values` - Tag values to test.
-
 ##### Optional Arguments:
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
 
+![](assets/vasp_converge_incar.png)
 ![](assets/vasp_converge_kpoints.png)
 
 
