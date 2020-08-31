@@ -3,7 +3,7 @@ Scripts to automate common operations with the Vienna Ab-initio Simulation Packa
 
 ## Installation
 
-The collection can be downloaded from PyPI under the package name `phillpot-vasp-scripts`.
+The collection can be downloaded from [PyPI](https://pypi.org/project/phillpot-vasp-scripts/) under the package name `phillpot-vasp-scripts`.
 
 ```bash
 $ pip install phillpot-vasp-scripts
