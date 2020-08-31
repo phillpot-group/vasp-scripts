@@ -45,8 +45,8 @@ def converge_incar(args, console):
     table = Table(title="{} Convergence Study".format(args.tag))
     table.add_column("Directory")
     table.add_column("{} Value".format(args.tag))
-    for value in args.values:
-        dirname = "{}={}".format(args.tag, value)
+    for i, value in enumerate(args.values):
+        dirname = "{}_{}".format(args.tag, i)
         os.mkdir(dirname)
         shutil.copy("POSCAR", os.path.join(dirname, "POSCAR"))
         shutil.copy("POTCAR", os.path.join(dirname, "POTCAR"))
