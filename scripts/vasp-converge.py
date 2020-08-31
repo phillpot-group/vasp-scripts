@@ -67,8 +67,8 @@ if __name__ == "__main__":
     console = Console()
 
     parser = argparse.ArgumentParser(description="Sets up convergence tests from input files in the current directory.")
-    parser.add_argument("--jobcmd", default="sbatch", help="command used to submit a job file")
-    parser.add_argument("--jobfile", default="runjob.slurm", help="filename of the job submission file")
+    parser.add_argument("--jobcmd", default=os.environ.get("JOBCMD"), help="command used to submit a job file")
+    parser.add_argument("--jobfile", default=os.environ.get("JOBFILE"), help="filename of the job submission file")
     subparsers = parser.add_subparsers()
     
     parser_kpoints = subparsers.add_parser("kpoints", help="signals k-point convergence")
@@ -84,4 +84,8 @@ if __name__ == "__main__":
     parser_incar.set_defaults(func=converge_incar)
     
     args = parser.parse_args()
+    if args.jobcmd is None:
+        args.jobcmd = "sbatch"
+    if args.jobfile is None:
+        args.jobfile = "runjob.slurm"
     args.func(args, console)

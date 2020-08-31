@@ -43,8 +43,8 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
     * `--mode` - Grid construction mode (gamma, monkhorst...). Defaults to 'gamma'.
 
 ##### Optional Arguments:
-* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
-* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' or environment variable `JOBCMD`.
+* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm' or environment variable `JOBFILE`.
 
 ![](assets/vasp_converge_incar.png)
 ![](assets/vasp_converge_kpoints.png)
@@ -64,5 +64,5 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
 __[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
 
 ##### Optional Arguments:
-* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch'.
-* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm'.
+* `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' or environment variable `JOBCMD`.
+* `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm' or environment variable `JOBFILE`.
