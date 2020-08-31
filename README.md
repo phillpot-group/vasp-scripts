@@ -52,10 +52,11 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
 __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
 
 ##### Positional Arguments:
-* `type` - The type of defect to expect (surface, point...).
+* `type` - The type of defect to expect (point, surface...).
 * `reference` - Path to the reference system's calculation directory.
 * `defective` - Path to the defective system's calculation directory.
 
+![](assets/vasp_defect_energy_point.png)
 ![](assets/vasp_defect_energy_surface.png)
 
 
