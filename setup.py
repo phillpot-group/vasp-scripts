@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="phillpot-vasp-scripts",
-    version="0.1.1",
+    version="0.1.2",
     description="A collection of scipts to automate common VASP tasks.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -19,10 +19,5 @@ setup(
         "scripts/vasp-converge.py",
         "scripts/vasp-defect-energy.py",
         "scripts/vasp-restart.py",
-    ],
-    install_requires=[
-        "pymatgen", 
-        "rich", 
-        "termgraph"
     ],
 )
