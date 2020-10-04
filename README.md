@@ -32,6 +32,8 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
     * `tag` - INCAR tag name.
     * `values` - Tag values to test.
 
+![](assets/vasp_converge_incar.png)
+
 * `kpoints` - Signals a k-point convergence test.
     
     ###### Positional Arguments:
@@ -42,13 +44,11 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
     ###### Optional Arguments:
     * `--mode` - Grid construction mode (gamma, monkhorst...). Defaults to 'gamma'.
 
+![](assets/vasp_converge_kpoints.png)
+
 ##### Optional Arguments:
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' or environment variable `JOBCMD`.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm' or environment variable `JOBFILE`.
-
-![](assets/vasp_converge_incar.png)
-![](assets/vasp_converge_kpoints.png)
-
 
 __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
 
@@ -60,6 +60,8 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
     * `defect` - Path to the defective system's calculation directory.
     * `ground` - Path to the defect specie's ground state calculation directory.
 
+![](assets/vasp_defect_energy_point.png)
+
 * `surface` - Signals a surface formation energy calculation.
 
     ###### Positional Arguments:
@@ -67,9 +69,6 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
     * `defect` - Path to the defective system's calculation directory.
     * `plane` - Specifies which plane to interpret as surface. Defaults to 'xy'. Valid options are 'xy', 'xz', and 'yz'.
 
-(image outdated - 10/04/20)
-![](assets/vasp_defect_energy_point.png)
-(image outdated - 10/04/20)
 ![](assets/vasp_defect_energy_surface.png)
 
 
