@@ -13,6 +13,7 @@ from rich.table import Table
 
 
 NEB_POSITIONS_FNAME = "neb.positions"
+SEARCH_RADIUS = 0.5
 
 
 def neb_setup(args, console):
@@ -26,7 +27,10 @@ def neb_setup(args, console):
     images = []
     if positions is None:
         # call pymatgen interpolator
-        images = initial_contcar.structure.interpolate(final_contcar.structure, nimages=args.nimages)        
+        images = initial_contcar.structure.interpolate(
+            final_contcar.structure, 
+            nimages=args.nimages+1 # pymatgen includes the final structure in `nimages`
+        )    
     else:
         # call custom interpolator
         images = custom_interpolate(
@@ -39,7 +43,7 @@ def neb_setup(args, console):
     for i, image in enumerate(images):
         dirname = f"{i:02}"
         os.mkdir(dirname)
-        with open(os.path.join(dirname, "POSCAR")) as f:
+        with open(os.path.join(dirname, "POSCAR"), "w") as f:
             f.write(Poscar(image).get_string())
 
     # copy OUTCARs for post-processing
@@ -58,7 +62,7 @@ def custom_interpolate(initial, final, nimages, positions):
     images = [copy.deepcopy(initial) for _ in range(nimages)]
     
     # iterate over the initial/final pairs
-    for i in enumerate(positions):
+    for i in range(len(positions)):
         # skip finals and break at end
         if i % 2 != 0:
             if i == len(positions - 1):
@@ -71,7 +75,11 @@ def custom_interpolate(initial, final, nimages, positions):
         final_pos = positions[i+1]
 
         # check that the initial site is occupied
-        initial_sites = initial.get_sites_in_sphere(initial_pos, 1.0E-6, include_index=True)
+        initial_sites = initial.get_sites_in_sphere(
+            initial_pos, 
+            SEARCH_RADIUS, 
+            include_index=True
+        )
         if len(initial_sites) == 0:
             # TODO: log error
             raise RuntimeError
@@ -79,23 +87,23 @@ def custom_interpolate(initial, final, nimages, positions):
         initial_specie = initial_sites[0][0].specie
 
         # check that the final site is unoccupied
-        if len(final.get_sites_in_sphere(final_pos, 1.0E-6)) != 0:
+        if len(final.get_sites_in_sphere(final_pos, SEARCH_RADIUS)) != 0:
             # TODO: log error
             raise RuntimeError
 
         # calculate path between final and initial
         diff = final_pos - initial_pos
-        step = diff / nimages
+        step = diff / (nimages+1)
 
         # interpolate points along the path
         points = [initial_pos + (step * (i+1)) for i in range(nimages)]
 
-        # remove the initial site
-        images[0].remove_sites([initial_index])
         # insert the interpolated sites
         for j, point in enumerate(points):
+            images[j].remove_sites([initial_index])
             images[j].insert(initial_index, initial_specie, point)
 
+    images = [copy.deepcopy(initial)] + images + [copy.deepcopy(final)]
     return images
 
 

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * `vasp-neb-setup.py` script.
+* Integration tests.
 
 ## [0.1.2] - 2020-10-04
 
