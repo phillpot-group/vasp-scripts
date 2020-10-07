@@ -1,0 +1,2 @@
+*.poscar filter=lfs diff=lfs merge=lfs -text
+*.outcar filter=lfs diff=lfs merge=lfs -text
