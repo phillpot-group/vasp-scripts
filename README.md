@@ -1,6 +1,7 @@
 # vasp-scripts
 Scripts to automate common operations with the Vienna Ab-initio Simulation Package.
 
+
 ## Installation
 
 The collection can be downloaded from [PyPI](https://pypi.org/project/phillpot-vasp-scripts/) under the package name `phillpot-vasp-scripts`.
@@ -9,6 +10,7 @@ The collection can be downloaded from [PyPI](https://pypi.org/project/phillpot-v
 $ pip install phillpot-vasp-scripts
 ```
 Assuming your `pip` installation is configured correctly, the scripts will be immediately available through your `PATH` environment variable.
+
 
 ## Available Scripts
 
@@ -50,6 +52,7 @@ __[vasp-converge.py](scripts/vasp-converge.py)__ - Sets up a convergence test fr
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' or environment variable `JOBCMD`.
 * `--jobfile` - The filename of the job submission script. Defaults to 'runjob.slurm' or environment variable `JOBFILE`.
 
+
 __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect formation energy between a reference system and a defective system.
 
 ##### Subcommands:
@@ -70,25 +73,6 @@ __[vasp-defect-energy.py](scripts/vasp-defect-energy.py)__ - Calculates defect f
     * `plane` - Specifies which plane to interpret as surface. Defaults to 'xy'. Valid options are 'xy', 'xz', and 'yz'.
 
 ![](assets/vasp_defect_energy_surface.png)
-
-__[vasp-neb-setup.py](scripts/vasp-neb-setup.py)__ - Prepares intermediate images for a NEB calculation. If the file `neb.positions` exists, it is used to generate the migration paths. The file has the following format:
-
-```
-0.0 0.0 0.0     # initial position of the first migration path
-1.5 2.5 3.5     # final position of the first migration path
-...
-1.0 1.0 1.0     # initial position of the Nth migration path
-4.5 3.5 2.5     # final position of the Nth migration path
-```
-
-The initial position must be occupied and the final position must be unoccupied. The migration path for each pair is a straight line between final and initial. The positions must be listed in cartesian coordinates.
-
-If this file does not exist, interpolation follows the `pymatgen` implementation.
-
-##### Positional Arguments:
-* `initial` - Path to the initial system's calculation directory.
-* `final` - Path to the final system's calculation directory.
-* `nimages` - Number of intermediate images to generate.
 
 
 __[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
