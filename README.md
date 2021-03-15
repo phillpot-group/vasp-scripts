@@ -61,7 +61,7 @@ __[vasp-property.py](scripts/vasp-property.py)__ - Extracts a property from outp
 ![](assets/vasp_property_band_gap.png)
 
 
-__[vasp-restart.py](scripts/vasp-defect-energy.py)__ - Restarts a calculation after a timeout or failure.
+__[vasp-restart.py](scripts/vasp-restart.py)__ - Restarts a calculation after a timeout or failure.
 
 #### Optional Arguments:
 * `--jobcmd` - The command used to submit the job script. Defaults to 'sbatch' or environment variable `JOBCMD`.
