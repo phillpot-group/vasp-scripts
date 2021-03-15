@@ -70,22 +70,23 @@ if __name__ == "__main__":
     parser.add_argument("--jobcmd", default=os.environ.get("JOBCMD"), help="command used to submit a job file")
     parser.add_argument("--jobfile", default=os.environ.get("JOBFILE"), help="filename of the job submission file")
     subparsers = parser.add_subparsers()
-    
+
     parser_kpoints = subparsers.add_parser("kpoints", help="signals k-point convergence")
     parser_kpoints.add_argument("min", type=float, help="minimum grid density")
     parser_kpoints.add_argument("max", type=float, help="maximum grid density")
     parser_kpoints.add_argument("n", type=int, help="number of density values to test")
     parser_kpoints.add_argument("--mode", default="gamma", help="grid construction mode")
     parser_kpoints.set_defaults(func=converge_kpoints)
-    
+
     parser_incar = subparsers.add_parser("incar", help="signals INCAR tag convergence")
     parser_incar.add_argument("tag", help="name of the INCAR tag")
     parser_incar.add_argument("values", nargs="+", help="tag values to test")
     parser_incar.set_defaults(func=converge_incar)
-    
+
     args = parser.parse_args()
     if args.jobcmd is None:
         args.jobcmd = "sbatch"
     if args.jobfile is None:
         args.jobfile = "runjob.slurm"
     args.func(args, console)
+

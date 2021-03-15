@@ -81,3 +81,4 @@ if __name__ == "__main__":
         plot_memory(data, console)
     if args.time:
         plot_time(data, console)
+
